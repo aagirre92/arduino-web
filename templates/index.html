@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Arduino</title>
+        <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="{{url_for('static',filename='estilos.css')}}">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+
+    <div class="jumbotron text-center">
+  <h1>Control arduino</h1>
+  <p>Encender y apagar el led desde internet</p>
+</div>
+
+<form class="form-inline d-flex justify-content-center">
+  <button id="boton" type="submit" class="btn btn-primary mb-2">{{boton}}</button>
+</form>
+
+  </body>
+</html>
+
+<script>
+$( document ).ready(function() {
+  $("form").submit(function(e){
+    e.preventDefault()
+    $.ajax({
+      method:"POST",
+      url:"/control",
+      success: function(datos){
+        if (datos == "1") {
+          $("#boton").text("Apagar led")
+        } else {
+          $("#boton").text("Encender led")
+        }
+      }
+    })
+  })
+});
+</script>
